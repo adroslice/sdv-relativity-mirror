@@ -62,10 +62,9 @@ namespace Relativity
             if (float.IsNaN(totalElapsedGTI)) totalElapsedGTI = 0;
 
             float players = playerTimeData.Count;
-            float paused = playerTimeData.Count(x => !x.Value.STP);
-            float timeSpeedFactor = 1f - paused / players;
+            float active = playerTimeData.Count(x => x.Value.STP);
 
-            totalElapsedGTI += Game1.gameTimeInterval * timeSpeedFactor;
+            totalElapsedGTI += Game1.gameTimeInterval * (active / players);
             Game1.gameTimeInterval = 0;
 
             float averageGTI = playerTimeData.Sum(x => x.Value.GTI) / players;
